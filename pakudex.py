@@ -1,8 +1,9 @@
-from pakuri import pakuri
+from pakuri import Pakuri
 
-class pakudex:
+class Pakudex:
 
-    # Initializes this object to contain exactly capacity objects when completely full. The default capacity for the pakudex should be 20
+    # Initializes this object to contain exactly capacity objects when completely full. The default capacity for the
+    # pakudex should be 20
     def __init__(self, capacity=20):
         self.capacity = capacity
         self.pakuri_list = []
@@ -42,23 +43,23 @@ class pakudex:
     def sort_pakuri(self):
         self.pakuri_list.sort(key=lambda x: x.get_species())
 
-    # Sorts the pakuri objects in this pakudex according to Python standard lexicographical ordering of species name
     def add_pakuri(self, species):
         if len(self.pakuri_list) < self.capacity:
             for i in self.pakuri_list:
                 if i.get_species() == species:
+                    print("Error: Pakudex already contains this species!")
                     return False
-            self.pakuri_list.append(pakuri(species))
+            self.pakuri_list.append(Pakuri(species))
             return True
         else:
             return False
 
-        # Attempts to evolve species within the pakudex; if successful, return True, and False otherwise
-        def evolve_species(self, species):
-            for i in self.pakuri_list:
-                if i.get_species() == species:
-                    i.evolve()
-                    return True
-            return False
+        # Attempts to evolve a specific species within the pakudex; if successful, return True, and False otherwise
+    def evolve_species(self, species):
+        for i in self.pakuri_list:
+            if i.get_species() == species:
+                i.evolve()
+                return True
+        return False
 
 
