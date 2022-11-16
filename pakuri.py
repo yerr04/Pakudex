@@ -1,4 +1,4 @@
-class Pakuri:
+class pakuri:
 
     # initialize the pakuri object with species attribute
     def __init__(self, species):
