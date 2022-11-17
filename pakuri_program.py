@@ -10,23 +10,27 @@ def main_menu():  # Displays the main menu and returns the user's choice
     print("4. Evolve Pakuri")
     print("5. Sort Pakuri")
     print("6. Exit \n")
-    menu = int(input("What would you like to do? "))
+    menu = input("What would you like to do? ")
     return menu
 
 
 def main():
     print("Welcome to Pakudex: Tracker Extraordinaire!")
-    while True:
+    program = True
+    while program:
         max_capacity = input("Enter max capacity of the Pakudex: ")
-        while max_capacity.isdigit() is False:
+        while max_capacity.isdigit() is False or int(max_capacity) < 1:
             print("Please enter a valid size.")
             max_capacity = input("Enter max capacity of the Pakudex: ")
         max_capacity = int(max_capacity)
-
         print("The Pakudex can hold {} species of Pakuri.".format(max_capacity))
         dex = Pakudex(max_capacity)
         choice = main_menu()
-        while choice != 6:
+        while choice:
+            try:
+                choice = int(choice)
+            except ValueError:
+                print("Unrecognized menu selection!")
             if choice == 1:
                 if dex.get_species_array() is None:
                     print("No Pakuri in Pakudex yet!")
@@ -54,7 +58,7 @@ def main():
                 else:
                     species = input("Enter the name of the species to add: ")
                     dex.add_pakuri(species)
-                    print("Pakuri species " + species + " successfully added!")
+
 
             elif choice == 4:
                 try:
@@ -62,18 +66,25 @@ def main():
                     if dex.evolve_species(species):
                         print(species + " has evolved!")
                     else:
-                        raise ValueError
-                except ValueError:
+                        print("Error: No such Pakuri!")
+                except:
                     print("Error: No such Pakuri!")
 
             elif choice == 5:
                 dex.sort_pakuri()
                 print("Pakuri have been sorted!")
+            elif choice == 6:
+                print("Thanks for using Pakudex! Bye!")
+                program = False
+                break
             else:
-                print("Unrecognized menu selection!")
+                try:
+                    if int(choice) > 6 or int(choice) < 1:
+                        print("Unrecognized menu selection!")
+                except ValueError:
+                    print("")
             choice = main_menu()
-        print("Thanks for using Pakudex! Bye!")
-        break
+
 
 
 if __name__ == "__main__":
